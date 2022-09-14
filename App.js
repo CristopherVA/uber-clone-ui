@@ -1,12 +1,32 @@
+import { StyleSheet, Text, View, Image, FlatList } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import HomeScreen from './src/screens/HomeScreen';
+import RestaurantDetailsScreen from './src/screens/RestaurantDetailsScreen';
+import DishDetailsScreen from './src/screens/DishDetailsScreen';
+import Basket from './src/screens/Basket';
+import OrderScreen from './src/screens/OrderScreen';
+import OrderDetails from './src/screens/OrderDetails';
+
+
+const Stack = createNativeStackNavigator();
+
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <View style={styles.container}>
+        {/* <HomeScreen /> */}
+        {/* <RestaurantDetailsScreen /> */}
+        {/* <DishDetailsScreen /> */}
+        {/* <Basket /> */}
+        {/* <OrderScreen /> */}
+        <OrderDetails />
+        <StatusBar style="light" />
+      </View >
+    </NavigationContainer>
   );
 }
 
@@ -17,4 +37,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
 });
