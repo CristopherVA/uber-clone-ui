@@ -10,9 +10,8 @@ import OrderListItem from '../../components/OrderListItem'
 const OrderScreen = () => {
    return (
       <View
-         style={{flex: 1, width: '100%', paddingTop: 40}}
+         style={{flex: 1, width: '100%'}}
       >  
-      <Text style={{textAlign: 'center', fontWeight: 'bold', fontSize: 40}}>Order</Text>
          <FlatList data={orders} renderItem={({ item }) => <OrderListItem order={item} />} />
       </View>
    )

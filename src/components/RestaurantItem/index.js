@@ -4,8 +4,11 @@ import { useNavigation } from '@react-navigation/native';
 
 
 const RestaurantItem = ({ restaurant }) => {
-
+   console.log(restaurant)
    const navigation = useNavigation()
+
+   const rating = restaurant.rating;
+
    
    const onPress =() => {
       navigation.navigate('Restaurant', {id: restaurant.id})
@@ -22,9 +25,9 @@ const RestaurantItem = ({ restaurant }) => {
          />
          <View style={styles.subcontainer}>
             <Text style={styles.title}> {restaurant.name}</Text>
-            <Text style={styles.rating}>{restaurant.rating}</Text>
+            <Text style={styles.rating}>{rating}</Text>
          </View>
-         <Text style={styles.subtitle}>{`$${restaurant.deliveryFee}`} &#8226; {restaurant.minDeliveryTime} - {restaurant.maxDeliveryTime} minutes</Text>
+         <Text style={styles.subtitle}>{`$${restaurant.deliveryFee}`} &#8226; {restaurant.minDeliveryTime} - {restaurant.maxDeliveryTIme} minutes</Text>
       </Pressable>
 
    )

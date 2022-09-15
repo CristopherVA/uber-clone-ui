@@ -46,6 +46,7 @@ const OrderDetails = () => {
             ListHeaderComponent={OrderDetailsHeader}
             data={restaurants[0].dishes}
             renderItem={({ item }) => <BasketDishItem basketDish={item} />}
+            keyExtractor={(item) => item.name}
          />
       </View >
    )
