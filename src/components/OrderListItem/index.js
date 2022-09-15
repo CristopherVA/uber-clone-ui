@@ -1,9 +1,13 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { Image, Text, View } from 'react-native'
+import { Image, Text, View, Pressable } from 'react-native'
 
 const OrderListItem = ({ order }) => {
+
+  const navigation = useNavigation()
+
   return (
-    <View style={{
+    <Pressable onPress={() => navigation.navigate("Order", {id: order.id})} style={{
       flexDirection: 'row',
       margin: 10,
       alignItems: 'center'
@@ -17,7 +21,7 @@ const OrderListItem = ({ order }) => {
          <Text style={{color: 'grey'}}>2 days ago &#8226; {order.status}</Text>
 
       </View>
-    </View>
+    </Pressable>
   )
 }
 

@@ -26,7 +26,7 @@ const OrderDetailsHeader = () => {
          />
 
 
-         <Ionicons name="arrow-back-circle" size={45} color={"white"} style={styles.iconContainer} />
+         {/* <Ionicons name="arrow-back-circle" size={45} color={"white"} style={styles.iconContainer} /> */}
 
          <View style={styles.content}>
             <Text style={styles.title}>{order.Restaurant.name}</Text>

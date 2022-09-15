@@ -1,13 +1,15 @@
 import { useState } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Pressable } from 'react-native'
 import restaurants from '../../../assets/data/restaurants.json'
 import { AntDesign } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
+
 const dish = restaurants[0].dishes[0]
 
 const DishDetailsScreen = () => {
 
    const [quantity, setQuantity] = useState(1)
-
+   const navigation = useNavigation()
    const onMinus = () => {
       if (quantity > 1) {
          setQuantity(quantity - 1)
@@ -22,6 +24,8 @@ const DishDetailsScreen = () => {
       return dish.price * quantity
    }
 
+
+
    return (
       <View style={styles.page}>
          <Text style={styles.name}>{dish.name}</Text>
@@ -34,10 +38,10 @@ const DishDetailsScreen = () => {
             <AntDesign onPress={() => onPLus()} style={styles.icon} name='pluscircleo' size={60} color="black" />
          </View>
 
-         <View style={styles.button}>
-            <Text style={styles.textButton}>Add ${quantity} items to basket &#8226; ($${getTotal().toFixed(2)})</Text>
+         <Pressable onPress={() => navigation.navigate("Basket")} style={styles.button}>
+            <Text style={styles.textButton}>Add ${quantity} items to basket &#8226; (${getTotal().toFixed(2)})</Text>
            
-         </View>
+         </Pressable>
       </View>
    )
 }

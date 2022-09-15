@@ -1,29 +1,31 @@
-import React from 'react'
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 
 
-const RestaurantItem = ({ restaurants }) => {
+const RestaurantItem = ({ restaurant }) => {
 
-   const { image, name, deliveryFee, minDeliveryTime, maxDeliveryTime, rating
-   } = restaurants
+   const navigation = useNavigation()
+   
+   const onPress =() => {
+      navigation.navigate('Restaurant', {id: restaurant.id})
+      // console.warn('pressed')
+   }
 
    return (
-      <View style={styles.restaurantContainer}>
+      <Pressable onPress={onPress} style={styles.restaurantContainer}>
          <Image
             source={{
-               uri: image
+               uri: restaurant.image
             }}
             style={styles.image}
          />
-
-
          <View style={styles.subcontainer}>
-            <Text style={styles.title}> {name}</Text>
-            <Text style={styles.rating}>{rating}</Text>
+            <Text style={styles.title}> {restaurant.name}</Text>
+            <Text style={styles.rating}>{restaurant.rating}</Text>
          </View>
-         <Text style={styles.subtitle}>{`$${deliveryFee}`} &#8226; {minDeliveryTime} - {maxDeliveryTime} minutes</Text>
-      </View>
+         <Text style={styles.subtitle}>{`$${restaurant.deliveryFee}`} &#8226; {restaurant.minDeliveryTime} - {restaurant.maxDeliveryTime} minutes</Text>
+      </Pressable>
 
    )
 }
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
       color: 'gray',
    },
    rating: {
-      width: 38,
+      width: 30,
       paddingVertical: 2,
       textAlign: 'center',
       color: 'black',

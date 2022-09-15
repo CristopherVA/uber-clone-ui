@@ -9,7 +9,7 @@ export default function HomeScreen() {
      <View style={styles.page}>
        <FlatList
          data={restaurants}
-         renderItem={({ item }) => <RestaurantItem restaurants={item} />}
+         renderItem={({ item }) => <RestaurantItem restaurant={item} />}
          showsVerticalScrollIndicator={false}
       />
      </View>
