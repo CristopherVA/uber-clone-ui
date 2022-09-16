@@ -1,18 +1,12 @@
 import React from 'react'
 import {  View, Text, Image } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
-import restaurants from '../../../assets/data/restaurants.json'
 import styles from './styles'
 import { useRoute, useNavigation } from '@react-navigation/native'
 
 
-const RestaurantDetailsScreen = () => {
-
-   const restaurant = restaurants[0]
-
-   const navigation = useNavigation()
-
-
+const RestaurantDetailsScreen = ({restaurant}) => {
+   const navigation = useNavigation();
    return (
       <View style={styles.page}>
          <Image
@@ -28,7 +22,7 @@ const RestaurantDetailsScreen = () => {
 
          <View style={styles.content}>
             <Text style={styles.title}>{restaurant.name}</Text>
-            <Text style={styles.subtitle}>{`$${restaurant.deliveryFee}`} &#8226; {restaurant.minDeliveryTime} - {restaurant.maxDeliveryTime} minutes</Text>
+            <Text style={styles.subtitle}>{`$${restaurant.deliveryFee.toFixed(1)}`} &#8226; {restaurant.minDeliveryTime} - {restaurant.maxDeliveryTime} minutes</Text>
             <Text style={styles.menuTitle}>Menu</Text>
          </View>
 

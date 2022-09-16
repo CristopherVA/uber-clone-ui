@@ -1,15 +1,59 @@
-import { View, Text, TextInput, StyleSheet, Button } from "react-native";
+import { View, Text, TextInput, StyleSheet, Button, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Auth } from 'aws-amplify'
+import { Auth, DataStore } from 'aws-amplify'
+import { User } from "../../models";
+import { useAuthContext } from "../../context/AuthContext";
+import { useNavigation } from "@react-navigation/native";
 
 const ProfileScreen = () => {
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [lat, setLat] = useState("0");
-  const [lng, setLng] = useState("0");
+  
+  const { sub, setDbUser, dbUser } = useAuthContext()
 
-  const onSave = () => {};
+  const [name, setName] = useState(dbUser?.name || "");
+  const [address, setAddress] = useState(dbUser?.address || "");
+  const [lat, setLat] = useState(dbUser?.lat + "" || "0");
+  const [lng, setLng] = useState(dbUser?.lng + "" || "0");
+  const navigation = useNavigation()
+
+  const onSave = async () => {
+    if (dbUser) {
+      await updateUser()
+    } else {
+      await createUser()
+    }
+    navigation.goBack()
+  };
+
+
+  const createUser = async () => {
+    try {
+      const user = await DataStore.save(
+        new User({
+          name,
+          address,
+          lat: parseFloat(lat),
+          lng: parseFloat(lng),
+          sub
+        }))
+      setDbUser(user)
+
+    } catch (error) {
+      Alert.alert("Error", error.message)
+    }
+  }
+
+  const updateUser = async () => {
+    const user = await DataStore.save(
+      User.copyOf(dbUser, (update) => {
+        update.name = name;
+        update.address = address;
+        update.lat = parseFloat(lat);
+        update.lng = parseFloat(lng);
+      })
+    );
+    setDbUser(user)
+  };
 
   return (
     <SafeAreaView>
@@ -40,7 +84,7 @@ const ProfileScreen = () => {
         style={styles.input}
       />
       <Button style={{ marginButton: 10 }} onPress={onSave} title="Save" />
-      <Text onPressIn={ () => Auth.signOut() } style={{ textAlign: 'center', color: 'red', margin: 10 }} onPress={onSave}  >Sign out</Text>
+      <Text onPressIn={() => Auth.signOut()} style={{ textAlign: 'center', color: 'red', margin: 10 }} onPress={onSave}  >Sign out</Text>
 
     </SafeAreaView>
   );
@@ -59,7 +103,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 5,
   },
- 
+
 });
 
 export default ProfileScreen;

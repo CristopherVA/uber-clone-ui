@@ -1,5 +1,5 @@
-import { useNavigation } from '@react-navigation/native'
 import React from 'react'
+import { useNavigation } from '@react-navigation/native'
 import { View, Image, Text, StyleSheet, Pressable } from 'react-native'
 
 const DistListItem = ({ dish }) => {
