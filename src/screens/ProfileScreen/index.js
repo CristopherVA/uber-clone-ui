@@ -7,14 +7,15 @@ import { useAuthContext } from "../../context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
 
 const ProfileScreen = () => {
-  
-  const { sub, setDbUser, dbUser } = useAuthContext()
 
+  const { dbUser } = useAuthContext()
   const [name, setName] = useState(dbUser?.name || "");
   const [address, setAddress] = useState(dbUser?.address || "");
   const [lat, setLat] = useState(dbUser?.lat + "" || "0");
   const [lng, setLng] = useState(dbUser?.lng + "" || "0");
   const navigation = useNavigation()
+  const { sub, setDbUser } = useAuthContext()
+  console.log({ dbUser })
 
   const onSave = async () => {
     if (dbUser) {
@@ -22,8 +23,9 @@ const ProfileScreen = () => {
     } else {
       await createUser()
     }
-    navigation.goBack()
   };
+
+
 
 
   const createUser = async () => {
@@ -82,9 +84,11 @@ const ProfileScreen = () => {
         onChangeText={setLng}
         placeholder="Longitude"
         style={styles.input}
+        keyboardType="numeric"
+
       />
-      <Button style={{ marginButton: 10 }} onPress={onSave} title="Save" />
-      <Text onPressIn={() => Auth.signOut()} style={{ textAlign: 'center', color: 'red', margin: 10 }} onPress={onSave}  >Sign out</Text>
+      <Button style={{ marginButton: 10 }} onPress={() => onSave()} title="Save" />
+      <Text onPressIn={() => Auth.signOut()} style={{ textAlign: 'center', color: 'red', margin: 10 }} onPress={() => onSave()}  >Sign out</Text>
 
     </SafeAreaView>
   );

@@ -17,6 +17,7 @@ export default function HomeScreen() {
          <FlatList
             data={restaurants}
             renderItem={({ item }) => <RestaurantItem restaurant={item} />}
+            keyExtractor={(item) => item.name}
             showsVerticalScrollIndicator={false}
          />
       </View>

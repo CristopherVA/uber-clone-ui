@@ -30,6 +30,17 @@ const styles = StyleSheet.create({
       marginTop: 20,
       fontSize: 15,
       color: '#525252'
+   },
+   button: {
+      backgroundColor: 'black',
+      marginTop: 'auto',
+      padding: 20,
+      alignItems: 'center'
+   },
+   buttonText: {
+      fontSize: 16,
+      color: 'white', 
+      fontWeight: "bold"
    }
 
 });

@@ -5,6 +5,7 @@ import { AntDesign } from '@expo/vector-icons'
 
 import { DataStore } from 'aws-amplify'
 import { Dish } from '../../models'
+import { useBasketContext } from '../../context/BasketContext'
 
 
 const DishDetailsScreen = () => {
@@ -27,6 +28,13 @@ const DishDetailsScreen = () => {
 
    const getTotal = () => {
       return dish.price * quantity
+   }
+
+   const { addDishToBasket } = useBasketContext();
+
+   const onAddToBasket = async () => {
+      await addDishToBasket(dish, quantity)
+      navigation.goBack()
    }
 
    useEffect(() => {
@@ -52,7 +60,7 @@ const DishDetailsScreen = () => {
             <AntDesign onPress={() => onPLus()} style={styles.icon} name='pluscircleo' size={60} color="black" />
          </View>
 
-         <Pressable onPress={() => navigation.navigate("Basket")} style={styles.button}>
+         <Pressable onPress={onAddToBasket} style={styles.button}>
             <Text style={styles.textButton}>Add ${quantity} items to basket &#8226; (${getTotal().toFixed(2)})</Text>
 
          </Pressable>

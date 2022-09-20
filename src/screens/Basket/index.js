@@ -2,12 +2,11 @@ import { useState } from 'react'
 import { View, Text, StyleSheet, FlatList } from 'react-native'
 import BasketDishItem from '../../components/BasketDishItem'
 import restaurants from '../../../assets/data/restaurants.json'
-const restaurant = restaurants[0]
-
-
-
+import { useBasketContext } from '../../context/BasketContext'
 
 const Basket = () => {
+
+   const { basketDishes, restaurant } = useBasketContext()
 
    return (
       <View style={styles.page}>
@@ -16,13 +15,12 @@ const Basket = () => {
          <Text style={styles.name}>{restaurant.name}</Text>
          <Text style={{fontWeight: 'bold', fontSize: 18, marginVertical: 10}}>Your Items</Text>
 
-         <FlatList data={restaurant.dishes} renderItem={({ item }) => <BasketDishItem basketDish={item} />} />
+         <FlatList data={basketDishes} renderItem={({ item }) => <BasketDishItem basketDish={item} />} />
 
          <View style={styles.separator} />
 
          <View style={styles.button}>
             <Text style={styles.textButton}>Create Order</Text>
-
          </View>
       </View>
    )
