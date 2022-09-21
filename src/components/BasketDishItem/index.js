@@ -2,10 +2,7 @@ import React from 'react'
 import { View, Image, Text, StyleSheet } from 'react-native'
 
 const BasketDishItem = ({ basketDish }) => {
-   console.log("aaaaaaaaaa");
-
    console.log({ basketDish });
-
    return (
       <View style={styles.row} >
          <View style={styles.quantityContainer}>

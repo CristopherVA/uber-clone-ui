@@ -1,13 +1,14 @@
 import React from 'react'
 import { FlatList, Text, View, Pressable } from 'react-native'
 
-// Data
-import orders from '../../../assets/data/orders.json'
-
 //Component
 import OrderListItem from '../../components/OrderListItem'
+import { useOrderContext } from '../../context/OrderContext'
 
 const OrderScreen = () => {
+
+   const { orders } = useOrderContext()
+
    return (
       <View
          style={{flex: 1, width: '100%'}}

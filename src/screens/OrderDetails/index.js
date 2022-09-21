@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, FlatList, Image } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import styles from './styles'
@@ -7,14 +7,14 @@ import BasketDishItem from '../../components/BasketDishItem'
 
 import orders from '../../../assets/data/orders.json'
 import restaurants from '../../../assets/data/restaurants.json'
+import { useOrderContext } from '../../context/OrderContext'
+import { useRoute } from '@react-navigation/native'
+import { ActivityIndicator } from 'react-native-paper'
 
 
-const order = orders[0]
-const restaurant = restaurants[0]
 
 
-const OrderDetailsHeader = () => {
-
+const OrderDetailsHeader = ({ order }) => {
    return (
       <View style={styles.page}>
          <Image
@@ -40,13 +40,26 @@ const OrderDetailsHeader = () => {
 
 const OrderDetails = () => {
 
+   const { getOrder } = useOrderContext()
+   const [order, setOrder] = useState()
+   const [orderDishItems, setOrderDishItems] = useState()
+   const { route } = useRoute()
+   const id = route.params?.id;
+
+   useEffect(() => {
+      getOrder(id).then(setOrder)
+   }, [])
+
+   if (!order) {
+      return <ActivityIndicator size={"large"} color="gray" />
+   }
+
    return (
       <View style={styles.page}>
          <FlatList
-            ListHeaderComponent={OrderDetailsHeader}
-            data={restaurants[0].dishes}
+            ListHeaderComponent={() => <OrderDetailsHeader order={order} />}
+            data={order.dishes}
             renderItem={({ item }) => <BasketDishItem basketDish={item} />}
-            keyExtractor={(item) => item.name}
          />
       </View >
    )
