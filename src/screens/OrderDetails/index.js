@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, FlatList, Image } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import styles from './styles'
@@ -43,7 +43,7 @@ const OrderDetails = () => {
    const { getOrder } = useOrderContext()
    const [order, setOrder] = useState()
    const [orderDishItems, setOrderDishItems] = useState()
-   const { route } = useRoute()
+   const  route  = useRoute()
    const id = route.params?.id;
 
    useEffect(() => {
@@ -58,7 +58,7 @@ const OrderDetails = () => {
       <View style={styles.page}>
          <FlatList
             ListHeaderComponent={() => <OrderDetailsHeader order={order} />}
-            data={order.dishes}
+            data={order?.dishes}
             renderItem={({ item }) => <BasketDishItem basketDish={item} />}
          />
       </View >
